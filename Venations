@@ -1,0 +1,26 @@
+I'm setting up domain verification for the domain growthboostai.com on Resend, and I need to add the DNS records below at my domain registrar / DNS provider.
+
+Please first ask me which DNS provider I use, then give me step-by-step instructions for adding each record there. Keep every name and value exact, and flag any records that might conflict with ones I already have.
+
+## DKIM
+
+| Type | Name | Value | TTL | Priority |
+| --- | --- | --- | --- | --- |
+| TXT | resend._domainkey | p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCu3MQE3sbSACcF2W7/5c2uBmho9RnZL8fIAfl+ADXzTrjgX3tvnwmtZfpBouMOmLQtC89O1YYo4sjr1gl/ulCsGVOlWeVamu3EcqonDkHfuA0cPXUXynyDuIrivupBwe9RvrwKnbEA+GOso6tnDi8xylt9XLElqlfNveq8+IM1sQIDAQAB | Auto | - |
+
+## SPF
+
+| Type | Name | Value | TTL | Priority |
+| --- | --- | --- | --- | --- |
+| CNAME | rsend | rsend.forge.rmta.net | Auto | - |
+| CNAME | send | send.forge.rmta.net | Auto | - |
+
+## DMARC (recommended)
+
+| Type | Name | Value | TTL | Priority |
+| --- | --- | --- | --- | --- |
+| TXT | _dmarc | v=DMARC1; p=none; | Auto | - |
+
+Once I've added the records, I'll return to Resend to verify the domain.
+
+Resend docs: https://resend.com/docs/dashboard/domains/introduction

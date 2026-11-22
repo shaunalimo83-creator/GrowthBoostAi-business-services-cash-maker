@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# ==========================================================================
+# StudioForge — full QA run
+# Runs all three suites in order; any failure fails the script (exit != 0).
+#   1. test-static.mjs       — static checks, checklist §1 + §5   (S1–S7)
+#   2. test-qa-browser.mjs   — formerly-manual §3/§5/§6 checks   (M1–M10)
+#   3. test-plugins.mjs      — 21-check plugin regression suite
+# Results: static-results.json, browser-qa-results.json, test-results.json
+# ==========================================================================
+set -e
+cd "$(dirname "$0")"
+
+if [ ! -d node_modules/playwright ]; then
+  echo "Installing playwright…"
+  npm install --no-fund --no-audit
+fi
+npx playwright install chromium 2>/dev/null || true
+
+echo "== 1/3 static checks (checklist §1, §5) =="
+node test-static.mjs
+
+echo "== 2/3 browser QA — automated former-manual checks (§3, §5, §6) =="
+node test-qa-browser.mjs
+
+echo "== 3/3 plugin regression suite (§2) =="
+node test-plugins.mjs
+
+echo ""
+echo "ALL SUITES GREEN ✔"

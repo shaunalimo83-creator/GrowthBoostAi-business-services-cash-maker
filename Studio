@@ -1,0 +1,30 @@
+gamestudio/
+├── package.json                  npm config, playwright dep          15 lines
+├── run-qa.sh                     one-command QA runner               33 lines
+├── .github/workflows/qa.yml      CI: all 4 QA suites on push/PR      44 lines
+├── PLUGIN_QA_CHECKLIST.md        QA checklist, automation-mapped    151 lines
+├── test-static.mjs               static QA suite S1–S7              113 lines
+├── test-plugins.mjs              plugin regression, 21 checks       180 lines
+├── test-qa-browser.mjs           former-manual QA M1–M10            309 lines
+├── test-design.mjs               design-assistant QA D1–D14         343 lines
+├── ALL_SOURCE_CODE.md            ← the verbatim all-files document
+└── src/studioforge/
+    ├── index.html                app shell: 3 workspaces + plugin modal   479 lines
+    ├── manifest.webmanifest      PWA metadata                              17 lines
+    ├── sw.js                     service worker, cache v5                  64 lines
+    ├── README.md                 user docs + plugin table                 100 lines
+    ├── css/studio.css            all styling                             750 lines
+    ├── vendor/three.module.js    three.js r160 (vendored, minified)        6 lines*
+    ├── icons/icon-192.png        [binary] PWA icon
+    ├── icons/icon-512.png        [binary] PWA icon (also maskable)
+    └── js/
+        ├── app.js                hub: scene, store, wiring, loop        1253 lines
+        ├── noise.js              seeded Perlin/fBm + mulberry32          168 lines
+        ├── terrain.js            terrain/water/sky/lights                149 lines
+        ├── world.js              prop factories + scatter                332 lines
+        ├── editor.js             edit camera + pointer interaction       202 lines
+        ├── play.js               FPS player, weapons, hostile AI         483 lines
+        ├── film.js               film planner + cinema playback          691 lines
+        ├── plugins.js            plugin system + event bus, 12 plugins   402 lines
+        └── designer.js           design assistant (generate/sandbox/
+                                  archive/publish)                       648 lines

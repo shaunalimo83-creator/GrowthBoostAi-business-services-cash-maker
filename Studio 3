@@ -1,0 +1,44 @@
+name: StudioForge Plugin QA
+
+on:
+  push:
+    paths: ['src/studioforge/**', 'test-*.mjs', 'run-qa.sh']
+  pull_request:
+    paths: ['src/studioforge/**', 'test-*.mjs', 'run-qa.sh']
+  workflow_dispatch:
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci || npm install --no-fund --no-audit
+
+      - name: Install Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Static checks (checklist §1 + §5)
+        run: node test-static.mjs
+
+      - name: Browser QA — former manual checks (§3, §5, §6)
+        run: node test-qa-browser.mjs
+
+      - name: Plugin regression suite (§2)
+        run: node test-plugins.mjs
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results
+          path: |
+            static-results.json
+            browser-qa-results.json
+            test-results.json
+          if-no-files-found: ignore
